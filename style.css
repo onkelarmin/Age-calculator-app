@@ -248,6 +248,7 @@ body {
 
 .result__number {
   color: var(--clr-accent);
+  margin-right: 0.5rem;
 }
 
 @media (width>45em) {

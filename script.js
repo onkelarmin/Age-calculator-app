@@ -152,7 +152,7 @@ function invalidateForm() {
 
   form.classList.add('invalid')
   resultNumbers.forEach((el) => {
-    el.innerText = '--'
+    el.innerText = '- -'
   })
 }
 
