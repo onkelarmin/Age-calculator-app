@@ -226,6 +226,7 @@ body {
   background-color: var(--clr-accent);
   border-radius: 50%;
   border: none;
+  cursor: pointer;
 }
 
 .button-wrapper button:is(:hover, :focus) {
