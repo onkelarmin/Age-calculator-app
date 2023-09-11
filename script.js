@@ -109,17 +109,28 @@ function validateDay() {
 
 function renderAge() {
   const now = new Date()
-  const birthdate = new Date(`${year}-${month}-${day}`)
-  const differenceDays = (now - birthdate) / 86400000
+  const yearNow = now.getFullYear()
+  const monthNow = now.getMonth() + 1
+  const dayNow = now.getDate()
 
-  const yearsOldExact = differenceDays / 365.25
-  const yearsOld = Math.floor(yearsOldExact)
+  let daysOld
+  let monthsOld
 
-  const monthsOldExact = (yearsOldExact - yearsOld) * 12
-  const monthsOld = Math.floor(monthsOldExact)
+  if (dayNow - day >= 0) {
+    daysOld = dayNow - day
+  } else {
+    daysOld = daysPerMonth[monthNow] + (dayNow - day)
+    month++
+  }
 
-  const daysOldExact = (monthsOldExact - monthsOld) * 30.4167
-  const daysOld = Math.floor(daysOldExact)
+  if (monthNow - month >= 0) {
+    monthsOld = monthNow - month
+  } else {
+    monthsOld = 12 + (monthNow - month)
+    year++
+  }
+
+  const yearsOld = yearNow - year
 
   renderOutput(yearResult, yearsOld)
   renderOutput(monthResult, monthsOld)
@@ -127,14 +138,13 @@ function renderAge() {
 }
 
 function renderOutput(element, value) {
-  console.log(element, value)
   const increment = value / 150
   let c = 0
 
   const interval = setInterval(updateNumber, 1)
 
   function updateNumber() {
-    if (c <= value) {
+    if (c < value) {
       element.innerText = Math.floor(c)
       c += increment
     } else {
